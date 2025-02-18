@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const ordenarPor = document.getElementById('ordenarPor');
     const formNuevoOrdenador = document.getElementById('form-nuevo-ordenador');
     const formEditarOrdenador = document.getElementById('form-editar-ordenador');
+    const eliminarTodosBtn = document.getElementById('eliminarTodosBtn');
     
     function fetchOrdenadores() {
         const url = '/api/ordenadores';
@@ -44,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-
     ordenarPor.addEventListener('change', function() {
         const criterio = ordenarPor.value;
         axios.get('/api/ordenadores')
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const eliminarBtn = document.getElementById('eliminarConfirmado');
         const confirmarCheck = document.getElementById('confirmarCheck');
         const modal = new bootstrap.Modal(document.getElementById('confirmarEliminarModal')); // Mostrar el modal de confirmación
-        
+        eliminarBtn.disabled = true;
         // Habilitar el botón de eliminar solo si se marca el checkbox
         confirmarCheck.addEventListener('change', function() {
             eliminarBtn.disabled = !confirmarCheck.checked;
@@ -155,6 +155,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         };
     };
+
+    eliminarTodosBtn.addEventListener('click', function() {
+        const eliminarBtn = document.getElementById('eliminarConfirmado2');
+        const confirmarCheck = document.getElementById('confirmarCheck2');
+        const modal = new bootstrap.Modal(document.getElementById('confirmarEliminarModal2')); // Mostrar el modal de confirmación
+        eliminarBtn.disabled = true;
+        // Habilitar el botón de eliminar solo si se marca el checkbox
+        confirmarCheck.addEventListener('change', function() {
+            eliminarBtn.disabled = !confirmarCheck.checked;
+        });
+        modal.show();
+        // Mostrar el modal
+        eliminarBtn.onclick = function() {
+            axios.delete('/api/ordenadores')
+                .then(response => {
+                    fetchOrdenadores();
+                    modal.hide();
+                })
+                .catch(error => {
+                    console.error('Error deleting all ordenadores:', error);
+                    modal.hide();
+                });
+        }
+    });
     
     fetchOrdenadores();
 });

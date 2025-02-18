@@ -32,11 +32,11 @@ public class Ordenador {
     @NotNull(message = "El campo esIntel no puede ser nulo")
     private Boolean esIntel;
 
-    // Constructor sin parámetros
+    
     public Ordenador() {
     }
 
-    // Constructor con parámetros
+  
     public Ordenador(Long id, String nombre, String colorHex, Double peso, Integer numeroTeclas, Boolean esIntel) {
         this.id = id;
         this.nombre = nombre;

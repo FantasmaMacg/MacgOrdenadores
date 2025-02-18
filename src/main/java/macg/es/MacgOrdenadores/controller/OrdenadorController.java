@@ -48,6 +48,11 @@ public class OrdenadorController {
             return ResponseEntity.notFound().build();
         }
     }
+    @DeleteMapping
+    public ResponseEntity<Void> eliminarTodosOrdenadores() {
+        ordenadorService.eliminarTodosOrdenadores();
+        return ResponseEntity.noContent().build();
+    }   
 
     @GetMapping("/buscar/peso")
     public List<Ordenador> buscarPorPeso(@RequestParam Double peso) {

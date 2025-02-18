@@ -47,6 +47,9 @@ public class OrdenadorService {
             return true;
         }).orElse(false);
     }
+    public void eliminarTodosOrdenadores() {
+        ordenadorRepository.deleteAll();
+    }
 
     public List<Ordenador> buscarPorPeso(Double peso) {
         return ordenadorRepository.findByPeso(peso);
